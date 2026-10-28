@@ -166,4 +166,6 @@ document.addEventListener("click", (event) => {
   navigate(link.getAttribute("href"));
 });
 
+window.addEventListener("popstate", render);
+
 render();
