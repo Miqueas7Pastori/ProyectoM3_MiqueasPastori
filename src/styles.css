@@ -1,0 +1,242 @@
+:root {
+  --bg: #120e0c;
+  --bg-raised: #1c1613;
+  --ink: #f8f1e8;
+  --ink-soft: #cbbbaa;
+  --line: rgba(255, 122, 26, 0.35);
+  --orange: #ff6a1a;
+  --orange-deep: #c2410c;
+  --amber: #ffc14d;
+  --user: #243044;
+  --user-line: rgba(147, 184, 224, 0.45);
+  --danger-glow: rgba(255, 90, 20, 0.28);
+  --font-body: "Outfit", "Segoe UI", sans-serif;
+  --font-display: "Teko", "Arial Narrow", sans-serif;
+  --space: 1rem;
+  --radius: 1.125rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse at top, var(--danger-glow), transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  max-width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem var(--space) 0.75rem;
+  background: rgba(18, 14, 12, 0.92);
+  border-bottom: 2px solid var(--orange);
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #1a100c;
+  box-shadow: 0 0 0 2px #1a100c, 0 0 0 4px var(--orange);
+}
+
+.avatar__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.header__text {
+  min-width: 0;
+}
+
+.header__kicker,
+.header__status,
+.footer p,
+.message__author {
+  margin: 0;
+}
+
+.header__kicker {
+  color: var(--amber);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.header__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 0.9;
+}
+
+.header__status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+
+.header__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #3ddc84;
+  box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.18);
+}
+
+.thread {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  padding: 1rem var(--space) 1.25rem;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 85%;
+  padding: 0.7rem 0.85rem 0.8rem;
+  border-radius: var(--radius);
+}
+
+.message__author {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.message__text {
+  margin: 0;
+}
+
+.message--character {
+  align-self: flex-start;
+  background: linear-gradient(160deg, #3a2016 0%, #2a160f 100%);
+  border: 1px solid var(--line);
+  border-bottom-left-radius: 0.35rem;
+}
+
+.message--character .message__author {
+  color: var(--amber);
+}
+
+.message--user {
+  align-self: flex-end;
+  background: var(--user);
+  border: 1px solid var(--user-line);
+  border-bottom-right-radius: 0.35rem;
+}
+
+.message--user .message__author {
+  color: #9ec0e6;
+  text-align: right;
+}
+
+.composer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem var(--space);
+  background: var(--bg-raised);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.composer__input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(255, 193, 77, 0.28);
+  border-radius: 999px;
+  background: #100d0b;
+  color: var(--ink);
+}
+
+.composer__input::placeholder {
+  color: #8d7d6e;
+}
+
+.composer__input:focus {
+  outline: 2px solid var(--orange);
+  outline-offset: 1px;
+}
+
+.composer__send {
+  flex-shrink: 0;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff8a3d 0%, var(--orange) 55%, var(--orange-deep) 100%);
+  color: #1a100c;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.composer__send:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.footer {
+  padding: 0.45rem var(--space) calc(0.55rem + env(safe-area-inset-bottom));
+  background: #0d0b0a;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

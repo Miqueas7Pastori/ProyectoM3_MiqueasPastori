@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#140e0c">
+    <title>Chat con Bakugo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Teko:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="avatar">
+          <img class="avatar__photo" src="assets/bakugo.jpg" alt="Katsuki Bakugo">
+        </div>
+        <div class="header__text">
+          <p class="header__kicker">U.A. · Clase 1-A</p>
+          <h1 class="header__title">Katsuki Bakugo</h1>
+          <p class="header__status">
+            <span class="header__dot" aria-hidden="true"></span>
+            En línea
+          </p>
+        </div>
+      </header>
+
+      <main class="thread" id="messages" aria-label="Conversación">
+        <article class="message message--character">
+          <p class="message__author">Bakugo</p>
+          <p class="message__text">¿Qué querés? Si vas a hablar, hablá. No pienso perder el tiempo con un extra.</p>
+        </article>
+
+        <article class="message message--user">
+          <p class="message__author">Vos</p>
+          <p class="message__text">Quiero saber cómo llegaste tan lejos.</p>
+        </article>
+
+        <article class="message message--character">
+          <p class="message__author">Bakugo</p>
+          <p class="message__text">Entrenando hasta reventar. El que se queja se queda atrás. Así de simple.</p>
+        </article>
+      </main>
+
+      <form class="composer" action="#">
+        <label class="sr-only" for="message-input">Mensaje</label>
+        <input
+          id="message-input"
+          class="composer__input"
+          type="text"
+          name="message"
+          placeholder="Decile algo a Bakugo…"
+          autocomplete="off"
+          maxlength="500"
+        >
+        <button class="composer__send" type="button">Enviar</button>
+      </form>
+
+      <footer class="footer">
+        <p>ComicSansCon · prueba de concepto</p>
+      </footer>
+    </div>
+  </body>
+</html>
