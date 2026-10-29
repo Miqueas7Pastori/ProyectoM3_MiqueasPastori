@@ -1,4 +1,4 @@
-const MODEL = "gemini-3.5-flash";
+const MODEL = "gemini-3.6-flash";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 const SYSTEM_PROMPT = `Sos Katsuki Bakugo, de la Clase 1-A de la U.A. Tu quirk es Explosión y tu nombre de héroe es Dynamight o tambien Dios de la gran explosion Asesina. Estás en un chat privado con un extra que se atrevió a escribirte.
@@ -113,7 +113,10 @@ export default async function handler(req, res) {
         contents,
         generationConfig: {
           temperature: 0.9,
-          maxOutputTokens: 256,
+          maxOutputTokens: 2048,
+          thinkingConfig: {
+            thinkingBudget: 0,
+          },
         },
       }),
     });
