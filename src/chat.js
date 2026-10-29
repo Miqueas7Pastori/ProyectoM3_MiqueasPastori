@@ -35,9 +35,56 @@ export function renderMessageList(items) {
     .join("");
 }
 
-function paintMessages(thread) {
+let phase = "idle";
+let errorText = "";
+let sending = false;
+
+function chatControls() {
+  return {
+    thread: document.querySelector("#messages"),
+    input: document.querySelector("#message-input"),
+    button: document.querySelector(".composer__send"),
+    error: document.querySelector(".chat__error"),
+  };
+}
+
+function paintMessages() {
+  const { thread, input, button, error } = chatControls();
+
+  if (!thread) {
+    return;
+  }
+
   thread.innerHTML = renderMessageList(messages);
+
+  if (phase === "typing") {
+    thread.insertAdjacentHTML(
+      "beforeend",
+      `
+        <article class="message message--character message--typing">
+          <p class="message__author">Bakugo</p>
+          <p class="message__text">Está escribiendo…</p>
+        </article>
+      `,
+    );
+  }
+
   thread.scrollTop = thread.scrollHeight;
+
+  const busy = phase === "typing";
+
+  if (input) {
+    input.disabled = busy;
+  }
+
+  if (button) {
+    button.disabled = busy;
+  }
+
+  if (error) {
+    error.hidden = phase !== "error";
+    error.textContent = phase === "error" ? errorText : "";
+  }
 }
 
 export function renderChat() {
@@ -65,20 +112,23 @@ export function renderChat() {
         </div>
       </header>
 
-      <main class="thread" id="messages" aria-label="Conversación"></main>
+      <main class="thread" id="messages" aria-label="Conversación" aria-live="polite"></main>
 
       <form class="composer">
-        <label class="sr-only" for="message-input">Mensaje</label>
-        <input
-          id="message-input"
-          class="composer__input"
-          type="text"
-          name="message"
-          placeholder="Decile algo a Bakugo…"
-          autocomplete="off"
-          maxlength="500"
-        >
-        <button class="composer__send" type="submit">Enviar</button>
+        <p class="chat__error" role="alert" hidden></p>
+        <div class="composer__row">
+          <label class="sr-only" for="message-input">Mensaje</label>
+          <input
+            id="message-input"
+            class="composer__input"
+            type="text"
+            name="message"
+            placeholder="Decile algo a Bakugo…"
+            autocomplete="off"
+            maxlength="500"
+          >
+          <button class="composer__send" type="submit">Enviar</button>
+        </div>
       </form>
 
       <footer class="footer">
@@ -88,24 +138,55 @@ export function renderChat() {
   `;
 }
 
+async function requestReply() {
+  const response = await fetch("/api/functions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ messages }),
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok || typeof data.text !== "string" || !data.text.trim()) {
+    throw new Error(data.error || "Bakugo no pudo responder. Intentá de nuevo.");
+  }
+
+  return data.text.trim();
+}
+
 export function bindChat(root) {
-  const thread = root.querySelector("#messages");
   const form = root.querySelector(".composer");
   const input = root.querySelector("#message-input");
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const text = input.value.trim();
 
-    if (!text) {
+    if (!text || sending) {
       return;
     }
 
     messages.push({ author: "user", text });
     input.value = "";
-    paintMessages(thread);
-    input.focus();
+    sending = true;
+    phase = "typing";
+    errorText = "";
+    paintMessages();
+
+    try {
+      const reply = await requestReply();
+      messages.push({ author: "character", text: reply });
+      phase = "idle";
+    } catch (error) {
+      phase = "error";
+      errorText = error.message || "Bakugo no pudo responder. Intentá de nuevo.";
+    } finally {
+      sending = false;
+      paintMessages();
+      chatControls().input?.focus();
+    }
   });
 
-  paintMessages(thread);
+  paintMessages();
 }

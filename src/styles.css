@@ -287,13 +287,34 @@ input {
   text-align: right;
 }
 
+.message--typing .message__text {
+  color: var(--amber);
+  font-style: italic;
+}
+
+.chat__error {
+  margin: 0;
+  color: #ffb4a8;
+  font-size: 0.875rem;
+}
+
+.chat__error[hidden] {
+  display: none;
+}
+
 .composer {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.5rem;
   padding: 0.75rem var(--space);
   background: var(--bg-raised);
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.composer__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .composer__input {
@@ -331,6 +352,12 @@ input {
 .composer__send:focus-visible {
   outline: 2px solid var(--amber);
   outline-offset: 2px;
+}
+
+.composer__send:disabled,
+.composer__input:disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 
 .footer {
