@@ -1,6 +1,10 @@
-const assetBase = new URL("./", window.location.href);
+let assetBase;
 
 export function asset(path) {
+  if (!assetBase) {
+    assetBase = new URL("./", window.location.href);
+  }
+
   return new URL(path, assetBase).href;
 }
 
