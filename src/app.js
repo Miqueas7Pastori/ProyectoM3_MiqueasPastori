@@ -27,34 +27,58 @@ function normalizePath(pathname) {
 
 function renderHome() {
   return `
-    <section class="page">
-      <img class="hero__photo" src="${asset("assets/bakugo.jpg")}" alt="Katsuki Bakugo">
-      <p class="page__kicker">U.A. · Clase 1-A</p>
-      <h1 class="page__title">Chateá con Katsuki Bakugo</h1>
-      <p class="page__text">
-        El de la Gran Explosión Asesina no vino a ser amable. Responde corto,
-        en voz alta y sin paciencia para extras. Si vas a preguntarle algo,
-        que valga la pena.
-      </p>
-      <a class="button" href="/chat" data-link>Empezar a chatear</a>
+    <section class="page page--home">
+      <div class="hero">
+        <img class="hero__photo" src="${asset("assets/bakugo.jpg")}" alt="Katsuki Bakugo">
+        <div class="hero__copy">
+          <p class="page__kicker">U.A. · Clase 1-A</p>
+          <p class="page__eyebrow">Chateá con</p>
+          <h1 class="page__title">Katsuki<br><span>Bakugo</span></h1>
+          <p class="page__lead">
+            No vino a ser amable. Responde corto, fuerte y sin paciencia para extras.
+          </p>
+          <a class="button" href="/chat" data-link>Empezar a chatear</a>
+        </div>
+      </div>
+      <ul class="facts">
+        <li>
+          <span>Quirk</span>
+          <strong>Explosión</strong>
+        </li>
+        <li>
+          <span>Héroe</span>
+          <strong>Dynamight</strong>
+        </li>
+        <li>
+          <span>Meta</span>
+          <strong>N.º 1</strong>
+        </li>
+      </ul>
     </section>
   `;
 }
 
 function renderAbout() {
   return `
-    <section class="page">
-      <p class="page__kicker">ComicSansCon</p>
-      <h1 class="page__title">Acerca de</h1>
-      <p class="page__text">
-        Esta prueba de concepto muestra un chat con un personaje ficticio.
-        El personaje elegido es Katsuki Bakugo, de My Hero Academia, porque
-        tiene una forma de hablar imposible de confundir.
-      </p>
-      <p class="page__text">
-        La idea es conversar con él desde el celular, la tablet o el escritorio,
-        sin recargar la página al cambiar de sección.
-      </p>
+    <section class="page page--about">
+      <header class="about__intro">
+        <p class="page__kicker">ComicSansCon</p>
+        <h1 class="page__title">Charlando<br><span>con Bakugo</span></h1>
+        <p class="page__lead">
+          La agencia busca armar experiencias para fans de series, películas y videojuegos.
+          Esta es una charla con un personaje ficticio, para ver si la idea se sostiene.
+        </p>
+      </header>
+      <div class="about__grid">
+        <article class="panel panel--alt">
+          <p class="panel__index"/p>
+          <h2>Bakugo</h2>
+          <p>
+            El personaje utilizado fue Katsuki Bakugo, de My Hero Academia. Tiene una personalidad chocante y muy competitiva.
+             Le suele gustar hablar de sus logros y presumir su fuerza, pero también es un personaje con un trasfondo interesante.
+          </p>
+        </article>
+      </div>
     </section>
   `;
 }

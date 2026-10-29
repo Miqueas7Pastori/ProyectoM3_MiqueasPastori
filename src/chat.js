@@ -5,14 +5,6 @@ const messages = [
     author: "character",
     text: "¿Qué querés? Si vas a hablar, hablá. No pienso perder el tiempo con un extra.",
   },
-  {
-    author: "user",
-    text: "Quiero saber cómo llegaste tan lejos.",
-  },
-  {
-    author: "character",
-    text: "Entrenando hasta reventar. El que se queja se queda atrás. Así de simple.",
-  },
 ];
 
 const labels = {
